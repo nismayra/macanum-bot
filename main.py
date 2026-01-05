@@ -448,6 +448,7 @@ while True:
         elif path == '/lightoff':
             led.value(0)
             led2.value(0)
+            magic_sleep_timer=0.1
             state = 'LED OFF'
         # --- Individual Wheel Control ---
         # Front Left (FL)
