@@ -1,3 +1,101 @@
+import network, urequests, machine, time, socket
+from machine import Pin
+
+# =========================
+# USER SETTINGS
+# =========================
+SSID = "linksys-2G"
+PASSWORD = "ramesh82"
+
+VERSION_URL  = "https://raw.githubusercontent.com/nismayra/macanum-bot/main/version.txt"
+FIRMWARE_URL = "https://raw.githubusercontent.com/nismayra/macanum-bot/main/main.py"
+
+WEBHOOK = "https://webhook.site/a4740314-f67a-4a56-927f-39695345b572"
+
+# =========================
+# OTA FUNCTIONS
+# =========================
+def read_local_version():
+    try:
+        with open("version.txt","r") as f:
+            return f.read().strip()
+    except:
+        return "0"
+
+def write_local_version(v):
+    with open("version.txt","w") as f:
+        f.write(v)
+
+def connect_wifi():
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    if not wlan.isconnected():
+        wlan.connect(SSID, PASSWORD)
+        while not wlan.isconnected():
+            time.sleep(1)
+    return wlan.ifconfig()[0]
+
+def post_update(version, ip):
+    try:
+        data = {
+            "device": "MECANUM_BOT",
+            "event": "OTA_UPDATE",
+            "version": version,
+            "ip": ip
+        }
+        r = urequests.post(WEBHOOK, json=data)
+        r.close()
+    except:
+        pass
+
+def ota_check():
+    ip = connect_wifi()
+    print("WiFi:", ip)
+
+    local_v = read_local_version()
+
+    try:
+        r = urequests.get(VERSION_URL)
+        remote_v = r.text.strip()
+        r.close()
+    except:
+        print("Version check failed")
+        return
+
+    print("Local:", local_v, "Remote:", remote_v)
+
+    if remote_v != local_v:
+        print("New firmware found")
+
+        try:
+            fw = urequests.get(FIRMWARE_URL)
+            code = fw.text
+            fw.close()
+
+            with open("main.py","w") as f:
+                f.write(code)
+
+            write_local_version(remote_v)
+
+            # Notify webhook
+            post_update(remote_v, ip)
+
+            print("Update installed, rebooting...")
+            time.sleep(2)
+            machine.reset()
+
+        except Exception as e:
+            print("OTA error:", e)
+
+# =========================
+# RUN OTA ON BOOT
+# =========================
+ota_check()
+
+# =========================
+# ORIGINAL MECANUM BOT LOGIC
+# =========================
+
 # MicroPython Base Code for Pico WH Magic Robots
 # Released under the GNU GPL v3.0 October 2025
 
