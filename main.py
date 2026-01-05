@@ -439,7 +439,7 @@ while True:
             path = '/'
 
         client_accepts_gzip = b'Accept-Encoding: gzip' in request
-
+        global magic_sleep_timer
         # Route the request to the appropriate motor function
         if path == '/lighton':
             led.value(1)
