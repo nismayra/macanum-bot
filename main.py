@@ -422,6 +422,7 @@ random_value = 0
 HTML_CONTENT, IS_GZIPPED = load_webpage_content()
 
 while True:
+    global magic_sleep_timer
     try:
         # Wait for a client connection
         conn, addr = s.accept()
@@ -445,7 +446,6 @@ while True:
             led2.value(1)
             state = 'LED ON'
         elif path == '/lightoff':
-            global magic_sleep_timer
             led.value(0)
             led2.value(0)
             magic_sleep_timer=0.1
