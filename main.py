@@ -179,8 +179,6 @@ def move_forward():
     # Rear Motors: FORWARD
     rear_left_forward.value(1); rear_left_backward.value(0)
     rear_right_forward.value(1); rear_right_backward.value(0)
-    time.sleep(0.05)
-    move_stop()
 
 def move_backward():
     """Moves the robot straight backward using only Front-Wheel Drive (FWD)."""
@@ -191,8 +189,6 @@ def move_backward():
     # Rear Motors: STOPPED
     rear_left_forward.value(0); rear_left_backward.value(1)
     rear_right_forward.value(0); rear_right_backward.value(1)
-    time.sleep(0.05)
-    move_stop()
 
 def move_left():
     """Moves the robot left"""
@@ -203,8 +199,6 @@ def move_left():
     # Rear Motors: FORWARD
     rear_left_forward.value(0); rear_left_backward.value(0)
     rear_right_forward.value(0); rear_right_backward.value(0)
-    time.sleep(0.05)
-    move_stop()
 
 def move_right():
     """Moves the robot right """
@@ -215,8 +209,6 @@ def move_right():
     # Rear Motors: STOPPED
     rear_left_forward.value(1); rear_left_backward.value(0)
     rear_right_forward.value(1); rear_right_backward.value(0)
-    time.sleep(0.05)
-    move_stop()
 
 
 
@@ -275,7 +267,7 @@ def strafe_left():
     # Front Right Forward, Rear Right Backward
     front_right_forward.value(1); front_right_backward.value(0)
     rear_right_forward.value(0); rear_right_backward.value(1)
-    time.sleep(0.05)
+    time.sleep(0.5)
     move_stop()
     
 def strafe_right():
@@ -289,7 +281,7 @@ def strafe_right():
     # Front Right Backward, Rear Right Forward
     front_right_forward.value(0); front_right_backward.value(1)
     rear_right_forward.value(1); rear_right_backward.value(0)
-    time.sleep(0.05)
+    time.sleep(0.5)
     move_stop()
     
 # --- DIAGONAL MOVEMENT FUNCTIONS ---
@@ -302,7 +294,7 @@ def forward_left_diagonal():
     # Front Right Forward, Rear Left Forward
     front_right_forward.value(1)
     rear_left_forward.value(1)
-    time.sleep(0.05)
+    time.sleep(0.5)
     move_stop()
 
 def forward_right_diagonal():
@@ -313,7 +305,7 @@ def forward_right_diagonal():
     # Front Left Forward, Rear Right Forward
     front_left_forward.value(1)
     rear_right_forward.value(1)
-    time.sleep(0.05)
+    time.sleep(0.5)
     move_stop()
     
 def backward_left_diagonal():
@@ -324,7 +316,7 @@ def backward_left_diagonal():
     # Front Left Backward, Rear Right Backward
     front_left_backward.value(1)
     rear_right_backward.value(1)
-    time.sleep(0.05)
+    time.sleep(0.5)
     move_stop()
 
 def backward_right_diagonal():
@@ -335,58 +327,58 @@ def backward_right_diagonal():
     # Front Right Backward, Rear Left Backward
     front_right_backward.value(1)
     rear_left_backward.value(1)
-    time.sleep(0.05)
+    time.sleep(0.5)
     move_stop()
 
 # MAGIC function (square pattern twice)
 def move_magic():
     """Executes a simple square pattern twice."""
     move_forward()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
     strafe_right()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
     move_backward()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
     strafe_left()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
     
     move_forward()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
     strafe_right()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
     move_backward()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
     strafe_left()
-    time.sleep(0.1)
+    time.sleep(0.5)
     move_stop()
 
 # MAGIC 1 function
 def move_magic_1():
     """Custom Magic Function 1"""
     move_left()
-    #time.sleep(0.5)
-    #move_stop()
+    time.sleep(0.5)
+    move_stop()
     
 # MAGIC 2 function
 def move_magic_2():
     """Custom Magic Function 2"""
     move_backward()
-    #time.sleep(0.5)
-    #move_stop()
+    time.sleep(0.5)
+    move_stop()
 
 # MAGIC 3 function
 def move_magic_3():
     """Custom Magic Function 3"""
     move_right()
-    #time.sleep(0.5)
-    #move_stop()
+    time.sleep(0.5)
+    move_stop()
 
 # Ensure motors are stopped at boot
 move_stop()
