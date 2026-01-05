@@ -86,6 +86,8 @@ def ota_check():
 
         except Exception as e:
             print("OTA error:", e)
+    else:
+        post_update(local_v, ip)
 
 # =========================
 # RUN OTA ON BOOT
@@ -341,34 +343,7 @@ def load_webpage_content():
             print("CRITICAL ERROR: magic.ar or alt.ar not found!")
             return b"<h1>CRITICAL ERROR: magic.ar or alt.ar not found!</h1>", False
 
-# Connect to Wi-Fi
-#wlan = network.WLAN(network.STA_IF)
-#wlan.active(True)
-#wlan.connect(ssid, password)
 
-# Wait for connection
-#timeout = 10
-#while timeout > 0:
-#    if wlan.status() >= 3:
-#        break
-#    timeout -= 1
-#    print('Waiting for the **Magic Robot** Wi-Fi connection...')
-#    time.sleep(1)
-
-# Check status
-if wlan.status() != 3:
-    raise RuntimeError('\n\nCould not connect to the **Magic Robot** Wi-Fi\n(Connection details are "magic" / "iitmadras")\n')
-else:
-    ip_address = wlan.ifconfig()[0]
-    led2.value(1)
-    print(f'\n\nConnected to the **Magic Robot** WiFi\n\nUse this IP address: {ip_address} in your mobile browser\n')
-    data = {  "device": "PICO_W", "ip_address": ip_address}
-    try:
-        response = urequests.post(WEBHOOK, json=data)
-        response.close()
-        print("Sent:", data)
-    except Exception as e:
-        print("Send failed:", e)
 
 # Setup web server
 addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
