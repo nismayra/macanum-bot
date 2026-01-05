@@ -1,5 +1,6 @@
 import network, urequests, machine, time, socket, random
 from machine import Pin
+led2 = Pin(28, Pin.OUT)
 
 # =========================
 # USER SETTINGS
@@ -33,6 +34,7 @@ def connect_wifi():
         wlan.connect(SSID, PASSWORD)
         while not wlan.isconnected():
             time.sleep(1)
+        led2.value(1)
     return wlan.ifconfig()[0]
 
 def post_update(version, ip):
@@ -120,7 +122,6 @@ ota_check()
 
 # LED Indicator
 led = Pin('LED', Pin.OUT)
-led2 = Pin(28, Pin.OUT)
 
 # Mappings
 # Motor Driver Objects: Front Left (FL), Rear Left (RL), Front Right (FR), Rear Right (RR)
