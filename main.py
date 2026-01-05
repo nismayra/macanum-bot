@@ -122,6 +122,7 @@ ota_check()
 
 # LED Indicator
 led = Pin('LED', Pin.OUT)
+magic_sleep_timer = 0.2
 
 # Mappings
 # Motor Driver Objects: Front Left (FL), Rear Left (RL), Front Right (FR), Rear Right (RR)
@@ -267,7 +268,7 @@ def strafe_left():
     # Front Right Forward, Rear Right Backward
     front_right_forward.value(1); front_right_backward.value(0)
     rear_right_forward.value(0); rear_right_backward.value(1)
-    time.sleep(0.5)
+    time.sleep(magic_sleep_timer)
     move_stop()
     
 def strafe_right():
@@ -281,7 +282,7 @@ def strafe_right():
     # Front Right Backward, Rear Right Forward
     front_right_forward.value(0); front_right_backward.value(1)
     rear_right_forward.value(1); rear_right_backward.value(0)
-    time.sleep(0.5)
+    time.sleep(magic_sleep_timer)
     move_stop()
     
 # --- DIAGONAL MOVEMENT FUNCTIONS ---
@@ -294,7 +295,7 @@ def forward_left_diagonal():
     # Front Right Forward, Rear Left Forward
     front_right_forward.value(1)
     rear_left_forward.value(1)
-    time.sleep(0.5)
+    time.sleep(magic_sleep_timer)
     move_stop()
 
 def forward_right_diagonal():
@@ -305,7 +306,7 @@ def forward_right_diagonal():
     # Front Left Forward, Rear Right Forward
     front_left_forward.value(1)
     rear_right_forward.value(1)
-    time.sleep(0.5)
+    time.sleep(magic_sleep_timer)
     move_stop()
     
 def backward_left_diagonal():
@@ -316,7 +317,7 @@ def backward_left_diagonal():
     # Front Left Backward, Rear Right Backward
     front_left_backward.value(1)
     rear_right_backward.value(1)
-    time.sleep(0.5)
+    time.sleep(magic_sleep_timer)
     move_stop()
 
 def backward_right_diagonal():
@@ -327,36 +328,36 @@ def backward_right_diagonal():
     # Front Right Backward, Rear Left Backward
     front_right_backward.value(1)
     rear_left_backward.value(1)
-    time.sleep(0.5)
+    time.sleep(magic_sleep_timer)
     move_stop()
 
 # MAGIC function (square pattern twice)
 def move_magic():
     """Executes a simple square pattern twice."""
     move_forward()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
     strafe_right()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
     move_backward()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
     strafe_left()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
     
     move_forward()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
     strafe_right()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
     move_backward()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
     strafe_left()
-    time.sleep(0.2)
+    time.sleep(magic_sleep_timer)
     move_stop()
 
 # MAGIC 1 function
@@ -369,9 +370,16 @@ def move_magic_1():
 # MAGIC 2 function
 def move_magic_2():
     """Custom Magic Function 2"""
-    move_backward()
-    time.sleep(0.5)
-    move_stop()
+    global magic_sleep_timer
+    global state
+    state = f'Magic 2: Sleep {magic_sleep_timer:.1f}s'
+    print(f"Current Magic 2 Sleep: {magic_sleep_timer:.1f}s")
+    
+    # Increment logic: Increase by 0.1, reset to 0.1 if it exceeds 1.0
+    magic_sleep_timer += 0.1
+    if magic_sleep_timer > 1.05: # Using 1.05 to avoid floating point precision issues
+        magic_sleep_timer = 0.1
+
 
 # MAGIC 3 function
 def move_magic_3():
@@ -447,72 +455,72 @@ while True:
             move_stop()
             front_left_forward.value(1)
             state = 'FL Forward'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/fl_rev':
             move_stop()
             front_left_backward.value(1)
             state = 'FL Reverse'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         # Front Right (FR)
         elif path == '/fr_fw':
             move_stop()
             front_right_forward.value(1)
             state = 'FR Forward'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/fr_rev':
             move_stop()
             front_right_backward.value(1)
             state = 'FR Reverse'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         # Rear Left (RL)
         elif path == '/rl_fw':
             move_stop()
             rear_left_forward.value(1)
             state = 'RL Forward'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/rl_rev':
             move_stop()
             rear_left_backward.value(1)
             state = 'RL Reverse'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         # Rear Right (RR)
         elif path == '/rr_fw':
             move_stop()
             rear_right_forward.value(1)
             state = 'RR Forward'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/rr_rev':
             move_stop()
             rear_right_backward.value(1)
             state = 'RR Reverse'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/forward':
             move_forward()
             state = 'Moving Forward'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/backward':
             move_backward()
             state = 'Moving Backward'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/left': # Spin Left
             move_left()
             state = 'Spinning Left'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/right': # Spin Right
             move_right()
             state = 'Spinning Right'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/magic':
             move_magic()
@@ -529,32 +537,32 @@ while True:
         elif path == '/strafe_left':
             strafe_left()
             state = 'Strafing Left'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/strafe_right':
             strafe_right()
             state = 'Strafing Right'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/front_left':
             forward_left_diagonal()
             state = 'FWD Left Diagonal'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/front_right':
             forward_right_diagonal()
             state = 'FWD Right Diagonal'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/back_left':
             backward_left_diagonal()
             state = 'BKWD Left Diagonal'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/back_right':
             backward_right_diagonal()
             state = 'BKWD Right Diagonal'
-            time.sleep(0.5)
+            time.sleep(magic_sleep_timer)
             move_stop()
         elif path == '/stop':
             move_stop()
