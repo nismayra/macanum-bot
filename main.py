@@ -1,4 +1,4 @@
-import network, urequests, machine, time, socket
+import network, urequests, machine, time, socket, random
 from machine import Pin
 
 # =========================
@@ -106,15 +106,15 @@ ota_check()
 # Launched on Diwali, Laxmi Pooja, 2025
 # This is the base code using web sockets released on 20th October 2025.
 
-import network
-import socket
-import time
-import random
-import urequests
-from machine import Pin
+#import network
+#import socket
+#import time
+#import random
+#import urequests
+#from machine import Pin
 
 # -------- Webhook URL ---------------
-WEBHOOK = "https://webhook.site/a4740314-f67a-4a56-927f-39695345b572"
+#WEBHOOK = "https://webhook.site/a4740314-f67a-4a56-927f-39695345b572"
 
 # LED Indicator
 led = Pin('LED', Pin.OUT)
@@ -150,8 +150,8 @@ rear_right_forward = Pin(12, Pin.OUT)
 rear_right_backward = Pin(13, Pin.OUT)
 
 # Wi-Fi credentials
-ssid = 'linksys-2G'
-password = 'ramesh82'
+ssid = SSID
+password = PASSWORD
 
 def move_stop():
     """Sets all motor control pins LOW to stop all movement."""
@@ -342,18 +342,18 @@ def load_webpage_content():
             return b"<h1>CRITICAL ERROR: magic.ar or alt.ar not found!</h1>", False
 
 # Connect to Wi-Fi
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(ssid, password)
+#wlan = network.WLAN(network.STA_IF)
+#wlan.active(True)
+#wlan.connect(ssid, password)
 
 # Wait for connection
-timeout = 10
-while timeout > 0:
-    if wlan.status() >= 3:
-        break
-    timeout -= 1
-    print('Waiting for the **Magic Robot** Wi-Fi connection...')
-    time.sleep(1)
+#timeout = 10
+#while timeout > 0:
+#    if wlan.status() >= 3:
+#        break
+#    timeout -= 1
+#    print('Waiting for the **Magic Robot** Wi-Fi connection...')
+#    time.sleep(1)
 
 # Check status
 if wlan.status() != 3:
