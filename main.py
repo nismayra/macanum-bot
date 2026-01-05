@@ -240,7 +240,7 @@ def move_backward_old():
     front_right_forward.value(0); front_right_backward.value(1)
     rear_right_forward.value(0); rear_right_backward.value(0)
 
-def move_right():
+def move_right_old():
     """Spins the robot clockwise (turn right in place)."""
     # Left wheels forward, Right wheels backward
     
@@ -252,7 +252,7 @@ def move_right():
     front_right_forward.value(0); front_right_backward.value(1)
     rear_right_forward.value(0); rear_right_backward.value(1)
 
-def move_left():
+def move_left_old():
     """Spins the robot counter-clockwise (turn left in place)."""
     # Left wheels backward, Right wheels forward
     
@@ -358,9 +358,9 @@ def move_magic():
 # MAGIC 1 function
 def move_magic_1():
     """Custom Magic Function 1"""
-    move_forward()
-    time.sleep(0.5)
-    move_stop()
+    move_left()
+    #time.sleep(0.5)
+    #move_stop()
     
 # MAGIC 2 function
 def move_magic_2():
@@ -373,8 +373,8 @@ def move_magic_2():
 def move_magic_3():
     """Custom Magic Function 3"""
     move_right()
-    time.sleep(0.5)
-    move_stop()
+    #time.sleep(0.5)
+    #move_stop()
 
 # Ensure motors are stopped at boot
 move_stop()
