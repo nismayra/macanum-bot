@@ -173,23 +173,23 @@ def move_stop():
 def move_forward():
     """Moves the robot straight forward using only Rear-Wheel Drive (RWD)."""
     # Front Motors: STOPPED
-    front_left_forward.value(0); front_left_backward.value(0)
+    front_left_forward.value(1); front_left_backward.value(0)
     front_right_forward.value(0); front_right_backward.value(0)
     
     # Rear Motors: FORWARD
     rear_left_forward.value(1); rear_left_backward.value(0)
-    rear_right_forward.value(1); rear_right_backward.value(0)
+    rear_right_forward.value(0); rear_right_backward.value(0)
 
 
 def move_backward():
     """Moves the robot straight backward using only Front-Wheel Drive (FWD)."""
     # Front Motors: BACKWARD
-    front_left_forward.value(0); front_left_backward.value(1)
+    front_left_forward.value(0); front_left_backward.value(0)
     front_right_forward.value(0); front_right_backward.value(1)
     
     # Rear Motors: STOPPED
     rear_left_forward.value(0); rear_left_backward.value(0)
-    rear_right_forward.value(0); rear_right_backward.value(0)
+    rear_right_forward.value(0); rear_right_backward.value(1)
 
 
 def move_forward_old():
