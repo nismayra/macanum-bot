@@ -409,6 +409,43 @@ while True:
             led.value(0)
             led2.value(0)
             state = 'LED OFF'
+        # --- Individual Wheel Control ---
+        # Front Left (FL)
+        elif path == '/fl_fw':
+            move_stop()
+            front_left_forward.value(1)
+            state = 'FL Forward'
+        elif path == '/fl_rev':
+            move_stop()
+            front_left_backward.value(1)
+            state = 'FL Reverse'
+        # Front Right (FR)
+        elif path == '/fr_fw':
+            move_stop()
+            front_right_forward.value(1)
+            state = 'FR Forward'
+        elif path == '/fr_rev':
+            move_stop()
+            front_right_backward.value(1)
+            state = 'FR Reverse'
+        # Rear Left (RL)
+        elif path == '/rl_fw':
+            move_stop()
+            rear_left_forward.value(1)
+            state = 'RL Forward'
+        elif path == '/rl_rev':
+            move_stop()
+            rear_left_backward.value(1)
+            state = 'RL Reverse'
+        # Rear Right (RR)
+        elif path == '/rr_fw':
+            move_stop()
+            rear_right_forward.value(1)
+            state = 'RR Forward'
+        elif path == '/rr_rev':
+            move_stop()
+            rear_right_backward.value(1)
+            state = 'RR Reverse'
         elif path == '/forward':
             move_forward()
             state = 'Moving Forward'
