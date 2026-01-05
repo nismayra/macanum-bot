@@ -379,6 +379,8 @@ def move_magic_2():
     magic_sleep_timer += 0.1
     if magic_sleep_timer > 1.05: # Using 1.05 to avoid floating point precision issues
         magic_sleep_timer = 0.1
+        led2.value(0)
+        
 
 
 # MAGIC 3 function
@@ -422,7 +424,6 @@ random_value = 0
 HTML_CONTENT, IS_GZIPPED = load_webpage_content()
 
 while True:
-    global magic_sleep_timer
     try:
         # Wait for a client connection
         conn, addr = s.accept()
@@ -448,7 +449,7 @@ while True:
         elif path == '/lightoff':
             led.value(0)
             led2.value(0)
-            magic_sleep_timer=0.1
+            magic_sleep_timer = 0.1
             state = 'LED OFF'
         # --- Individual Wheel Control ---
         # Front Left (FL)
