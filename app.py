@@ -50,10 +50,21 @@ def connect_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     if not wlan.isconnected():
+        print(f"Connecting to WiFi: {SSID}...")
         wlan.connect(SSID, PASSWORD)
-        while not wlan.isconnected():
-            time.sleep(1)
-        led2.value(1)
+        
+        # Wait up to 10 seconds (20 * 0.5s)
+        for i in range(20):
+            if wlan.isconnected():
+                print("WiFi Connected!")
+                led2.value(1)
+                return wlan.ifconfig()[0]
+            print(".", end="")
+            time.sleep(0.5)
+            
+        print("\nWiFi Connection Failed! Skipping OTA.")
+        return None
+        
     return wlan.ifconfig()[0]
 
 def post_update(version, ip):
@@ -88,6 +99,9 @@ def download_file(url, local_path):
 
 def ota_check():
     ip = connect_wifi()
+    if not ip:
+        return
+        
     print("WiFi:", ip)
 
     # --- STAGE 2: Dependency Sync ---
